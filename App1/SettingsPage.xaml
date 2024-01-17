@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="App1.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App1"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollView>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Padding="32">
+            <StackPanel Padding="8" Margin="8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" CornerRadius="8" >
+                <ToggleSwitch x:Name="ScoreboardMode" Header="Режим" OnContent="Международный" OffContent="Национальный" Toggled="ToggleMode"/>
+            </StackPanel>
+            <StackPanel x:Name="CountryPanel" Padding="8" Margin="8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" CornerRadius="8">
+                <ListView ItemsSource="{x:Bind Scoreboard.Countries}" MinHeight="100" MinWidth="300" Header="Страны">
+                    <ListView.ContextFlyout>
+                        <CommandBarFlyout>
+                            <AppBarButton Label="Флаг" Icon="Flag"/>
+                            <AppBarButton Label="Изменить" Icon="Edit"/>
+                            <AppBarButton Label="Удалить" Icon="Delete"/>
+                        </CommandBarFlyout>
+                    </ListView.ContextFlyout>
+                </ListView>
+                <StackPanel Orientation="Horizontal" Spacing="8" Margin="4">
+                    <TextBox x:Name="CountryName" MinWidth="200" />
+                    <Button Click="AddCountry">
+                        <SymbolIcon Symbol="Add"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Padding="8" Margin="8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" CornerRadius="8">
+                <ListView ItemsSource="{x:Bind Scoreboard.Participants}" Height="200" Header="Участники">
+                    <ListView.ContextFlyout>
+                        <CommandBarFlyout>
+                            <AppBarButton Label="Изменить" Icon="Edit"/>
+                            <AppBarButton Label="Удалить" Icon="Delete"/>
+                        </CommandBarFlyout>
+                    </ListView.ContextFlyout>
+                </ListView>
+                <StackPanel Orientation="Horizontal" Spacing="8" Margin="4">
+                    <ComboBox x:Name="ParticipantCountry" ItemsSource="{x:Bind Scoreboard.Countries}"/>
+                    <TextBox x:Name="ParticipantName" MinWidth="200" />
+                    <Button Click="AddParticipant">
+                        <SymbolIcon Symbol="Add"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Padding="8" Margin="8" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" CornerRadius="8">
+                <ListView x:Name="Marks" ItemsSource="{x:Bind Scoreboard.VotingMarks}" Height="200" Header="Оценки">
+                    <ListView.ContextFlyout>
+                        <CommandBarFlyout Opening="MarkFlyout_Opening">
+                            <AppBarButton Label="Удалить" Icon="Delete"/>
+                        </CommandBarFlyout>
+                    </ListView.ContextFlyout>
+                </ListView>
+                <StackPanel Orientation="Horizontal" Spacing="4" Margin="4">
+                    <NumberBox x:Name="MarkValue"/>
+                    <Button Click="AddMark">
+                        <SymbolIcon Symbol="Add"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </ScrollView>
+</Page>
